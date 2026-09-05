@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaykumar Money Leak Detector</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#eef1f5;
+color:#222;
+}
+
+.header{
+background:#111;
+color:white;
+padding:22px 15px;
+text-align:center;
+}
+
+.header h1{
+margin:0;
+font-size:25px;
+}
+
+.header p{
+margin:7px 0 0;
+font-size:14px;
+color:#ccc;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+padding:15px;
+}
+
+.card{
+background:white;
+padding:18px;
+margin-bottom:15px;
+border-radius:16px;
+box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.card h2{
+margin-top:0;
+font-size:19px;
+}
+
+input,select{
+width:100%;
+padding:13px;
+margin:6px 0;
+border:1px solid #ccc;
+border-radius:10px;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:13px;
+margin-top:8px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+}
+
+.add-btn{
+background:#111;
+color:white;
+}
+
+.budget-btn{
+background:#444;
+color:white;
+}
+
+.reset-btn{
+background:#eee;
+color:#222;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.box{
+padding:15px;
+border-radius:13px;
+background:#f4f4f4;
+text-align:center;
+}
+
+.box strong{
+display:block;
+font-size:20px;
+margin-top:5px;
+}
+
+.expense-item{
+background:#f7f7f7;
+padding:13px;
+margin:8px 0;
+border-radius:12px;
+}
+
+.expense-top{
+display:flex;
+justify-content:space-between;
+gap:10px;
+}
+
+.expense-name{
+font-weight:bold;
+}
+
+.expense-amount{
+font-weight:bold;
+}
+
+.expense-date{
+font-size:12px;
+color:#777;
+margin-top:5px;
+}
+
+.delete-btn{
+background:#ddd;
+width:auto;
+padding:6px 10px;
+font-size:12px;
+margin-top:8px;
+}
+
+.message{
+text-align:center;
+font-weight:bold;
+padding:10px;
+}
+
+.leak{
+background:#fff1f1;
+border-radius:12px;
+padding:14px;
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>💰 Jaykumar Money Leak Detector</h1>
+<p>पता करो पैसा आखिर जा कहाँ रहा है?</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>💵 आपकी Income</h2>
+
+<input
+type="number"
+id="income"
+placeholder="Monthly Income जैसे ₹10000">
+</div>
+
+<div class="card">
+<h2>🎯 Monthly Budget</h2>
+
+<input
+type="number"
+id="budget"
+placeholder="इस महीने कितना खर्च करना है?">
+
+<button class="budget-btn" onclick="saveBudget()">
+Save Budget
+</button>
+</div>
+
+<div class="card">
+<h2>➕ नया खर्च</h2>
+
+<input
+type="text"
+id="expenseName"
+placeholder="खर्च का नाम जैसे खाना">
+
+<input
+type="number"
+id="expenseAmount"
+placeholder="रकम जैसे ₹200">
+
+<select id="category">
+<option value="Food">🍔 Food</option>
+<option value="Travel">🚗 Travel</option>
+<option value="Shopping">🛍️ Shopping</option>
+<option value="Recharge">📱 Recharge</option>
+<option value="Education">📚 Education</option>
+<option value="Other">📦 Other</option>
+</select>
+
+<button class="add-btn" onclick="addExpense()">
+➕ Add Expense
+</button>
+</div>
+
+<div class="card">
+<h2>📊 आपका Money Dashboard</h2>
+
+<div class="dashboard">
+
+<div class="box">
+Income
+<strong id="showIncome">₹0</strong>
+</div>
+
+<div class="box">
+Expense
+<strong id="showExpense">₹0</strong>
+</div>
+
+<div class="box">
+Balance
+<strong id="showBalance">₹0</strong>
+</div>
+
+<div class="box">
+Budget
+<strong id="showBudget">₹0</strong>
+</div>
+
+</div>
+</div>
+
+<div class="card message" id="message">
+अपना data डालना शुरू करो 👆
+</div>
+
+<div class="card">
+
+<h2>🔎 Money Leak Detector</h2>
+
+<div class="leak" id="leakBox">
+अभी analysis नहीं हुआ।
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>🧾 आपके Expenses</h2>
+
+<div id="expenseList">
+कोई expense अभी नहीं है।
+</div>
+
+</div>
+
+<div class="card">
+
+<button class="reset-btn" onclick="resetApp()">
+🔄 Reset All Data
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+let expenses =
+JSON.parse(localStorage.getItem("jayExpenses")) || [];
+
+let savedIncome =
+Number(localStorage.getItem("jayIncome")) || 0;
+
+let savedBudget =
+Number(localStorage.getItem("jayBudget")) || 0;
+
+document.getElementById("income").value =
+savedIncome || "";
+
+document.getElementById("budget").value =
+savedBudget || "";
+
+
+document.getElementById("income")
+.addEventListener("input",function(){
+
+let income = Number(this.value) || 0;
+
+localStorage.setItem(
+"jayIncome",
+income
+);
+
+calculate();
+
+});
+
+
+function saveBudget(){
+
+let budget =
+Number(document.getElementById("budget").value) || 0;
+
+localStorage.setItem(
+"jayBudget",
+budget
+);
+
+calculate();
+
+alert("✅ Budget Save हो गया!");
+
+}
+
+
+function addExpense(){
+
+let name =
+document.getElementById("expenseName")
+.value.trim();
+
+let amount =
+Number(
+document.getElementById("expenseAmount").value
+);
+
+let category =
+document.getElementById("category").value;
+
+
+if(name === "" || amount <= 0){
+
+alert("⚠️ Expense का नाम और सही रकम डालो");
+
+return;
+
+}
+
+
+let today =
+new Date().toLocaleDateString("en-IN");
+
+
+expenses.push({
+
+id:Date.now(),
+
+name:name,
+
+amount:amount,
+
+category:category,
+
+date:today
+
+});
+
+
+localStorage.setItem(
+"jayExpenses",
+JSON.stringify(expenses)
+);
+
+
+document.getElementById("expenseName").value="";
+
+document.getElementById("expenseAmount").value="";
+
+calculate();
+
+}
+
+
+function deleteExpense(id){
+
+expenses =
+expenses.filter(function(expense){
+
+return expense.id !== id;
+
+});
+
+
+localStorage.setItem(
+"jayExpenses",
+JSON.stringify(expenses)
+);
+
+calculate();
+
+}
+
+
+function calculate(){
+
+let income =
+Number(
+document.getElementById("income").value
+) || 0;
+
+let budget =
+Number(
+document.getElementById("budget").value
+) || 0;
+
+let total = 0;
+
+
+expenses.forEach(function(expense){
+
+total += expense.amount;
+
+});
+
+
+let balance =
+income - total;
+
+
+document.getElementById("showIncome")
+.innerText = "₹" + income;
+
+document.getElementById("showExpense")
+.innerText = "₹" + total;
+
+document.getElementById("showBalance")
+.innerText = "₹" + balance;
+
+document.getElementById("showBudget")
+.innerText = "₹" + budget;
+
+
+let message =
+document.getElementById("message");
+
+
+if(income === 0){
+
+message.innerText =
+"💡 पहले अपनी Income डालो।";
+
+}
+
+else if(balance < 0){
+
+message.innerText =
+"🚨 सावधान! खर्च आपकी Income से ज्यादा हो गया।";
+
+}
+
+else if(budget > 0 && total > budget){
+
+message.innerText =
+"⚠️ आपका Budget पार हो चुका है!";
+
+}
+
+else{
+
+message.innerText =
+"✅ अभी आपके पास ₹" +
+balance +
+" बाकी हैं।";
+
+}
+
+
+analyzeLeaks();
+
+showExpenses();
+
+}
+
+
+function analyzeLeaks(){
+
+let leakBox =
+document.getElementById("leakBox");
+
+
+if(expenses.length === 0){
+
+leakBox.innerText =
+"अभी कोई expense नहीं है।";
+
+return;
+
+}
+
+
+let categories = {};
+
+
+expenses.forEach(function(expense){
+
+if(!categories[expense.category]){
+
+categories[expense.category] = 0;
+
+}
+
+categories[expense.category] +=
+expense.amount;
+
+});
+
+
+let biggestCategory = "";
+
+let biggestAmount = 0;
+
+
+for(let category in categories){
+
+if(categories[category] > biggestAmount){
+
+biggestAmount =
+categories[category];
+
+biggestCategory =
+category;
+
+}
+
+}
+
+
+leakBox.innerHTML =
+"🔍 सबसे ज्यादा खर्च: <b>" +
+biggestCategory +
+"</b><br><br>" +
+
+"💸 इस category में: <b>₹" +
+biggestAmount +
+"</b><br><br>" +
+
+"👉 अपने अगले खर्च में थोड़ा ध्यान दो।";
+
+}
+
+
+function showExpenses(){
+
+let list =
+document.getElementById("expenseList");
+
+
+if(expenses.length === 0){
+
+list.innerHTML =
+"कोई expense अभी नहीं है।";
+
+return;
+
+}
+
+
+list.innerHTML = "";
+
+
+expenses.slice().reverse().forEach(
+function(expense){
+
+list.innerHTML +=
+
+"<div class='expense-item'>" +
+
+"<div class='expense-top'>" +
+
+"<span class='expense-name'>" +
+
+expense.category +
+" — " +
+expense.name +
+
+"</span>" +
+
+"<span class='expense-amount'>" +
+
+"₹" +
+expense.amount +
+
+"</span>" +
+
+"</div>" +
+
+"<div class='expense-date'>" +
+
+"📅 " +
+expense.date +
+
+"</div>" +
+
+"<button class='delete-btn' " +
+
+"onclick='deleteExpense(" +
+expense.id +
+")'>" +
+
+"🗑️ Delete" +
+
+"</button>" +
+
+"</div>";
+
+});
+
+}
+
+
+function resetApp(){
+
+let confirmReset =
+confirm(
+"क्या आप पूरा data delete करना चाहते हैं?"
+);
+
+
+if(!confirmReset){
+
+return;
+
+}
+
+
+expenses = [];
+
+
+localStorage.removeItem(
+"jayExpenses"
+);
+
+localStorage.removeItem(
+"jayIncome"
+);
+
+localStorage.removeItem(
+"jayBudget"
+);
+
+
+document.getElementById("income").value="";
+
+document.getElementById("budget").value="";
+
+
+calculate();
+
+}
+
+
+calculate();
+
+</script>
+
+</body>
+</html>
