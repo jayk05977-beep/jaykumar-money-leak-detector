@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Jaykumar Smart Document Studio</title>
+
+<meta name="description" content="Create professional resumes, job applications and useful documents quickly with Jaykumar Smart Document Studio.">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f6f8;
+color:#171717;
+}
+
+.header{
+background:#111;
+color:#fff;
+padding:25px 18px;
+border-radius:0 0 25px 25px;
+}
+
+.header h1{
+margin:0;
+font-size:25px;
+}
+
+.header p{
+color:#bbb;
+font-size:14px;
+margin:7px 0 0;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+padding:15px;
+}
+
+.card{
+background:#fff;
+border-radius:20px;
+padding:18px;
+margin-bottom:15px;
+box-shadow:0 3px 14px rgba(0,0,0,.06);
+}
+
+h2{
+font-size:19px;
+margin:0 0 14px;
+}
+
+input,textarea,select{
+width:100%;
+padding:13px;
+margin:6px 0;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:15px;
+font-family:Arial,sans-serif;
+}
+
+textarea{
+min-height:100px;
+resize:vertical;
+}
+
+button{
+border:0;
+border-radius:12px;
+padding:13px 16px;
+font-size:15px;
+cursor:pointer;
+}
+
+.dark{
+background:#111;
+color:#fff;
+}
+
+.full{
+width:100%;
+margin-top:8px;
+}
+
+.tools{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.tool{
+background:#f2f2f2;
+padding:18px;
+border-radius:15px;
+cursor:pointer;
+}
+
+.tool strong{
+display:block;
+margin-bottom:5px;
+}
+
+.muted{
+color:#777;
+font-size:13px;
+line-height:1.5;
+}
+
+#formBox{
+display:none;
+}
+
+#resultBox{
+display:none;
+}
+
+.result{
+background:#fff;
+border:1px solid #ddd;
+border-radius:14px;
+padding:18px;
+line-height:1.6;
+white-space:pre-wrap;
+}
+
+.smallBtn{
+margin-top:8px;
+background:#eee;
+}
+
+.badge{
+display:inline-block;
+background:#eee;
+padding:7px 10px;
+border-radius:20px;
+font-size:12px;
+margin-bottom:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>📄 Jaykumar Smart Document Studio</h1>
+<p>अपनी जानकारी डालो • Professional document तैयार करो</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<span class="badge">⚡ Simple & Fast</span>
+
+<h2>आपको क्या बनाना है?</h2>
+
+<div class="tools">
+
+<div class="tool" onclick="openTool('resume')">
+<strong>📄 Resume</strong>
+<span class="muted">Professional CV बनाएं</span>
+</div>
+
+<div class="tool" onclick="openTool('application')">
+<strong>✉️ Application</strong>
+<span class="muted">Job application बनाएं</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card" id="formBox">
+
+<h2 id="formTitle">📄 Resume Maker</h2>
+
+<input id="name" placeholder="पूरा नाम">
+
+<input id="phone" placeholder="Mobile Number">
+
+<input id="email" placeholder="Email">
+
+<input id="city" placeholder="City">
+
+<input id="education" placeholder="Education / Qualification">
+
+<input id="skills" placeholder="Skills (जैसे Computer, Excel, Communication)">
+
+<input id="experience" placeholder="Experience (अगर नहीं है तो Fresher लिखें)">
+
+<textarea id="about" placeholder="अपने बारे में 2-3 lines"></textarea>
+
+<textarea id="extra" placeholder="Extra information (optional)"></textarea>
+
+<button class="dark full" onclick="generateDocument()">
+✨ Document तैयार करें
+</button>
+
+</div>
+
+
+<div class="card" id="resultBox">
+
+<h2>✅ आपका Document तैयार है</h2>
+
+<div class="result" id="result"></div>
+
+<button class="dark full" onclick="copyResult()">
+📋 Copy Document
+</button>
+
+<button class="smallBtn full" onclick="window.print()">
+🖨️ Print / Save as PDF
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>💡 क्यों इस्तेमाल करें?</h2>
+
+<p class="muted">
+यह tool आपको बिना complicated formatting के जल्दी से
+एक साफ और professional document तैयार करने में मदद करता है।
+</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+let currentTool="resume";
+
+
+function openTool(tool){
+
+currentTool=tool;
+
+document.getElementById("formBox").style.display="block";
+
+document.getElementById("resultBox").style.display="none";
+
+if(tool==="resume"){
+
+document.getElementById("formTitle").innerText=
+"📄 Resume Maker";
+
+document.getElementById("about").placeholder=
+"अपने बारे में 2-3 lines";
+
+}
+
+else{
+
+document.getElementById("formTitle").innerText=
+"✉️ Job Application Maker";
+
+document.getElementById("about").placeholder=
+"किस job के लिए application चाहिए?";
+
+}
+
+document.getElementById("formBox")
+.scrollIntoView({behavior:"smooth"});
+
+}
+
+
+function generateDocument(){
+
+let name=
+document.getElementById("name").value.trim();
+
+let phone=
+document.getElementById("phone").value.trim();
+
+let email=
+document.getElementById("email").value.trim();
+
+let city=
+document.getElementById("city").value.trim();
+
+let education=
+document.getElementById("education").value.trim();
+
+let skills=
+document.getElementById("skills").value.trim();
+
+let experience=
+document.getElementById("experience").value.trim();
+
+let about=
+document.getElementById("about").value.trim();
+
+let extra=
+document.getElementById("extra").value.trim();
+
+
+if(name===""){
+
+alert("⚠️ अपना नाम डालें।");
+return;
+
+}
+
+
+let output="";
+
+
+if(currentTool==="resume"){
+
+output=
+name+
+"\n"+
+city+
+"\n"+
+phone+
+" | "+
+email+
+"\n\n"+
+"PROFESSIONAL SUMMARY\n"+
+"-------------------------\n"+
+(about || "Motivated and responsible candidate looking for an opportunity to learn, contribute and grow professionally.")+
+"\n\n"+
+"EDUCATION\n"+
+"-------------------------\n"+
+(education || "Not provided")+
+"\n\n"+
+"SKILLS\n"+
+"-------------------------\n"+
+(skills || "Not provided")+
+"\n\n"+
+"EXPERIENCE\n"+
+"-------------------------\n"+
+(experience || "Fresher")+
+"\n\n"+
+"ADDITIONAL INFORMATION\n"+
+"-------------------------\n"+
+(extra || "Not provided");
+
+
+}else{
+
+output=
+"JOB APPLICATION\n"+
+"=========================\n\n"+
+"To,\n"+
+"The Hiring Manager\n\n"+
+"Subject: Application for Job Opportunity\n\n"+
+"Respected Sir/Madam,\n\n"+
+"My name is "+
+name+
+". I am interested in applying for a suitable job opportunity in your organization.\n\n"+
+"My qualification is "+
+(education || "not provided")+
+" and my skills include "+
+(skills || "not provided")+
+". My experience is "+
+(experience || "Fresher")+
+".\n\n"+
+(about || "I am hardworking, willing to learn and committed to performing my responsibilities sincerely.")+
+"\n\n"+
+"I would be grateful if you would consider my application and provide me an opportunity to contribute to your organization.\n\n"+
+"Thank you.\n\n"+
+"Sincerely,\n"+
+name+
+"\n"+
+phone+
+"\n"+
+email+
+"\n"+
+city;
+
+}
+
+
+document.getElementById("result").innerText=output;
+
+document.getElementById("resultBox").style.display="block";
+
+document.getElementById("resultBox")
+.scrollIntoView({behavior:"smooth"});
+
+}
+
+
+function copyResult(){
+
+let text=
+document.getElementById("result").innerText;
+
+navigator.clipboard.writeText(text)
+.then(function(){
+
+alert("✅ Document copy हो गया!");
+
+})
+.catch(function(){
+
+alert("❌ Copy नहीं हो पाया। Text को manually select करके copy करें।");
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
