@@ -6,53 +6,57 @@
 
 <meta name="google-site-verification" content="r5bWVnvIB2lUMbDX8GmjEIMxzH9taNOi9MI9IdaCEy0">
 
-<title>Jaykumar Money – Expense Tracker & Money Manager</title>
+<title>Jaykumar Smart Tools – Money & Document Tools</title>
 
-<meta name="description" content="Jaykumar Money एक simple और smart expense tracker है। अपना खर्च track करें, balance देखें, daily safe spending जानें और saving goal बनाएं।">
+<meta name="description" content="Jaykumar Smart Tools: expense tracker, money manager, resume maker और job application maker. आसान और useful online tools.">
 
-<meta name="keywords" content="expense tracker, money manager, budget tracker, expense calculator, savings tracker, daily spending, Jaykumar Money">
+<meta name="keywords" content="expense tracker, money manager, resume maker, CV maker, job application maker, document maker, budget tracker, Jaykumar Smart Tools">
 
 <meta name="author" content="Jaykumar">
 
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box;
+}
 
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#f5f6f8;
+background:#f4f6f8;
 color:#171717;
 }
 
 .header{
 background:#111;
 color:#fff;
-padding:25px 18px 22px;
-border-radius:0 0 25px 25px;
+padding:26px 18px 24px;
+border-radius:0 0 26px 26px;
 }
 
 .header h1{
 margin:0;
-font-size:26px;
+font-size:27px;
 }
 
 .header p{
-margin:7px 0 0;
+margin:8px 0 0;
 color:#bbb;
 font-size:14px;
+line-height:1.5;
 }
 
 .container{
-max-width:520px;
+max-width:650px;
 margin:auto;
-padding:14px;
+padding:15px;
 }
 
 .card{
 background:#fff;
 border-radius:20px;
 padding:18px;
-margin-bottom:14px;
+margin-bottom:15px;
 box-shadow:0 3px 14px rgba(0,0,0,.06);
 }
 
@@ -77,37 +81,45 @@ font-size:14px;
 }
 
 h2{
-font-size:18px;
-margin:0 0 13px;
+font-size:19px;
+margin:0 0 14px;
 }
 
-input,select{
+input,
+select,
+textarea{
 width:100%;
 padding:14px;
+margin:6px 0;
 border:1px solid #ddd;
 border-radius:12px;
-font-size:16px;
-margin:5px 0;
+font-size:15px;
+font-family:Arial,sans-serif;
 outline:none;
 background:#fff;
+}
+
+textarea{
+min-height:110px;
+resize:vertical;
 }
 
 button{
 border:0;
 border-radius:12px;
-padding:13px;
+padding:13px 16px;
 font-size:15px;
 cursor:pointer;
 }
 
 .dark{
 background:#111;
-color:white;
+color:#fff;
 }
 
 .full{
 width:100%;
-margin-top:7px;
+margin-top:8px;
 }
 
 .quick{
@@ -219,27 +231,127 @@ background:#eee;
 width:100%;
 }
 
+.toolGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.tool{
+background:#f2f2f2;
+padding:18px;
+border-radius:15px;
+cursor:pointer;
+}
+
+.tool strong{
+display:block;
+margin-bottom:6px;
+font-size:16px;
+}
+
+.tool span{
+color:#777;
+font-size:13px;
+line-height:1.4;
+}
+
+.documentBox{
+display:none;
+}
+
+.documentBox.show{
+display:block;
+}
+
+.resultBox{
+display:none;
+}
+
+.resultBox.show{
+display:block;
+}
+
+.result{
+background:#fff;
+border:1px solid #ddd;
+border-radius:14px;
+padding:18px;
+line-height:1.6;
+white-space:pre-wrap;
+font-size:14px;
+}
+
+.secondary{
+background:#eee;
+color:#111;
+}
+
+.badge{
+display:inline-block;
+background:#eee;
+padding:7px 10px;
+border-radius:20px;
+font-size:12px;
+margin-bottom:10px;
+}
+
+.sectionButton{
+width:100%;
+margin-top:8px;
+}
+
 .footer{
 text-align:center;
 color:#888;
 font-size:12px;
 padding:5px 0 25px;
 }
+
+@media(max-width:430px){
+
+.header h1{
+font-size:24px;
+}
+
+.quick{
+grid-template-columns:repeat(2,1fr);
+}
+
+.toolGrid{
+grid-template-columns:1fr;
+}
+
+.dashboard{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="header">
-<h1>💰 Jaykumar Money</h1>
-<p>खर्च समझो • पैसा बचाओ • बेहतर फैसले लो</p>
+
+<h1>🚀 Jaykumar Smart Tools</h1>
+
+<p>
+Simple tools for money management, resumes and useful documents.
+</p>
+
 </div>
+
 
 <div class="container">
 
+
+<!-- MONEY TOOL -->
+
 <div class="card hero">
 
-<small>आज कितना safely खर्च कर सकते हो?</small>
+<small>💰 आज कितना safely खर्च कर सकते हो?</small>
 
 <div class="safe" id="safeSpend">₹0</div>
 
@@ -249,21 +361,26 @@ padding:5px 0 25px;
 
 </div>
 
+
 <div class="card">
 
-<h2>💵 Monthly Income</h2>
+<h2>💵 Money Manager</h2>
 
 <input
 id="income"
 type="number"
-placeholder="जैसे ₹10000"
+placeholder="Monthly income जैसे ₹10000"
 >
 
-<button class="dark full" onclick="saveIncome()">
+<button
+class="dark full"
+onclick="saveIncome()"
+>
 Save Income
 </button>
 
 </div>
+
 
 <div class="card">
 
@@ -279,10 +396,11 @@ Save Income
 </div>
 
 <p class="muted">
-बस amount पर tap करो और खर्च तुरंत save हो जाएगा।
+Amount पर tap करके खर्च तुरंत save करें।
 </p>
 
 </div>
+
 
 <div class="card">
 
@@ -312,11 +430,15 @@ placeholder="कितने रुपये?"
 
 </select>
 
-<button class="dark full" onclick="addExpense()">
+<button
+class="dark full"
+onclick="addExpense()"
+>
 ➕ Save Expense
 </button>
 
 </div>
+
 
 <div class="card">
 
@@ -348,65 +470,110 @@ placeholder="कितने रुपये?"
 
 </div>
 
+
 <div class="card">
 
 <h2>🧠 Smart Advice</h2>
 
-<div class="advice" id="advice">
+<div
+class="advice"
+id="advice"
+>
 अपना पहला expense add करो।
 </div>
 
 </div>
+
 
 <div class="card">
 
 <h2>🧾 Recent Expenses</h2>
 
 <div id="expenseList">
-<div class="empty">अभी कोई expense नहीं है।</div>
+
+<div class="empty">
+अभी कोई expense नहीं है।
 </div>
 
 </div>
+
+</div>
+
 
 <div class="card">
 
-<button class="dark full" onclick="toggleAnalysis()">
+<button
+class="dark full"
+onclick="toggleAnalysis()"
+>
 📈 See My Analysis
 </button>
 
 </div>
 
-<div class="analysis" id="analysis">
+
+<div
+class="analysis"
+id="analysis"
+>
 
 <div class="card">
 
 <h2>🔎 Money Analysis</h2>
 
 <div class="analysisRow">
+
 <strong>Money Control Score</strong>
+
 <br>
-<span id="score">100/100</span>
+
+<span id="score">
+100/100
+</span>
+
 </div>
 
+
 <div class="analysisRow">
+
 <strong>सबसे ज्यादा खर्च</strong>
+
 <br>
-<span id="biggestCategory">अभी data नहीं है।</span>
+
+<span id="biggestCategory">
+अभी data नहीं है।
+</span>
+
 </div>
 
+
 <div class="analysisRow">
+
 <strong>30-Day Forecast</strong>
+
 <br>
-<span id="forecast">अभी data नहीं है।</span>
+
+<span id="forecast">
+अभी data नहीं है।
+</span>
+
 </div>
+
 
 <div class="analysisRow">
+
 <strong>💡 Possible Extra Saving</strong>
+
 <br>
-<span id="extraSaving">अभी data नहीं है।</span>
+
+<span id="extraSaving">
+अभी data नहीं है।
+</span>
+
 </div>
 
 </div>
+
 
 <div class="card">
 
@@ -418,19 +585,29 @@ type="number"
 placeholder="कितना बचाना चाहते हो?"
 >
 
-<button class="dark full" onclick="saveGoal()">
+<button
+class="dark full"
+onclick="saveGoal()"
+>
 Save Goal
 </button>
 
-<div class="advice" id="goalResult">
+<div
+class="advice"
+id="goalResult"
+>
 Goal set नहीं है।
 </div>
 
 </div>
 
+
 <div class="card">
 
-<button class="reset" onclick="resetApp()">
+<button
+class="reset"
+onclick="resetApp()"
+>
 🔄 Reset All Data
 </button>
 
@@ -438,13 +615,197 @@ Goal set नहीं है।
 
 </div>
 
-<div class="footer">
-Jaykumar Money • Your simple money companion
+
+<!-- DOCUMENT STUDIO -->
+
+<div class="card">
+
+<span class="badge">
+📄 New Tool
+</span>
+
+<h2>
+Jaykumar Smart Document Studio
+</h2>
+
+<p class="muted">
+Resume और Job Application जल्दी तैयार करें।
+अपनी जानकारी डालें और professional document बनाएं।
+</p>
+
+
+<div class="toolGrid">
+
+<div
+class="tool"
+onclick="openDocumentTool('resume')"
+>
+
+<strong>
+📄 Resume Maker
+</strong>
+
+<span>
+Professional resume तैयार करें।
+</span>
+
+</div>
+
+
+<div
+class="tool"
+onclick="openDocumentTool('application')"
+>
+
+<strong>
+✉️ Job Application
+</strong>
+
+<span>
+Job के लिए application तैयार करें।
+</span>
+
 </div>
 
 </div>
+
+</div>
+
+
+<div
+class="card documentBox"
+id="documentBox"
+>
+
+<h2 id="documentTitle">
+📄 Resume Maker
+</h2>
+
+
+<input
+id="docName"
+placeholder="पूरा नाम"
+>
+
+
+<input
+id="docPhone"
+placeholder="Mobile Number"
+>
+
+
+<input
+id="docEmail"
+placeholder="Email"
+>
+
+
+<input
+id="docCity"
+placeholder="City"
+>
+
+
+<input
+id="docEducation"
+placeholder="Education / Qualification"
+>
+
+
+<input
+id="docSkills"
+placeholder="Skills जैसे Computer, Excel, Communication"
+>
+
+
+<input
+id="docExperience"
+placeholder="Experience या Fresher"
+>
+
+
+<textarea
+id="docAbout"
+placeholder="अपने बारे में 2-3 lines"
+></textarea>
+
+
+<textarea
+id="docExtra"
+placeholder="Extra information (optional)"
+></textarea>
+
+
+<button
+class="dark full"
+onclick="generateDocument()"
+>
+✨ Document तैयार करें
+</button>
+
+</div>
+
+
+<div
+class="card resultBox"
+id="resultBox"
+>
+
+<h2>
+✅ आपका Document तैयार है
+</h2>
+
+<div
+class="result"
+id="result"
+></div>
+
+
+<button
+class="dark full"
+onclick="copyResult()"
+>
+📋 Copy Document
+</button>
+
+
+<button
+class="secondary full"
+onclick="window.print()"
+>
+🖨️ Print / Save as PDF
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>💡 Jaykumar Smart Tools</h2>
+
+<p class="muted">
+एक जगह पर simple और useful digital tools —
+money tracking और document creation के लिए।
+</p>
+
+</div>
+
+
+<div class="footer">
+
+Jaykumar Smart Tools • Simple tools for everyday work
+
+</div>
+
+</div>
+
 
 <script>
+
+
+/* =========================
+   MONEY MANAGER
+========================= */
 
 let expenses =
 JSON.parse(localStorage.getItem("jayExpenses")) || [];
@@ -454,6 +815,7 @@ Number(localStorage.getItem("jayIncome")) || 0;
 
 let goal =
 Number(localStorage.getItem("jayGoal")) || 0;
+
 
 document.getElementById("income").value =
 income || "";
@@ -465,9 +827,14 @@ goal || "";
 function saveIncome(){
 
 income =
-Number(document.getElementById("income").value) || 0;
+Number(
+document.getElementById("income").value
+) || 0;
 
-localStorage.setItem("jayIncome",income);
+localStorage.setItem(
+"jayIncome",
+income
+);
 
 calculate();
 
@@ -479,25 +846,49 @@ alert("✅ Income save हो गई!");
 function addExpense(){
 
 let name =
-document.getElementById("expenseName").value.trim();
+document
+.getElementById("expenseName")
+.value
+.trim();
 
 let amount =
-Number(document.getElementById("expenseAmount").value);
+Number(
+document.getElementById("expenseAmount").value
+);
 
 let category =
 document.getElementById("category").value;
 
-if(name==="" || amount<=0){
 
-alert("⚠️ सही नाम और amount डालो।");
+if(
+name === "" ||
+amount <= 0
+){
+
+alert(
+"⚠️ सही नाम और amount डालो।"
+);
+
 return;
 
 }
 
-createExpense(name,amount,category);
 
-document.getElementById("expenseName").value="";
-document.getElementById("expenseAmount").value="";
+createExpense(
+name,
+amount,
+category
+);
+
+
+document.getElementById(
+"expenseName"
+).value="";
+
+document.getElementById(
+"expenseAmount"
+).value="";
+
 
 calculate();
 
@@ -517,11 +908,16 @@ calculate();
 }
 
 
-function createExpense(name,amount,category){
+function createExpense(
+name,
+amount,
+category
+){
 
 expenses.push({
 
-id:Date.now()+Math.random(),
+id:
+Date.now()+Math.random(),
 
 name:name,
 
@@ -529,11 +925,16 @@ amount:amount,
 
 category:category,
 
-date:new Date().toLocaleDateString("en-IN"),
+date:
+new Date()
+.toLocaleDateString("en-IN"),
 
-fullDate:new Date().toISOString()
+fullDate:
+new Date()
+.toISOString()
 
 });
+
 
 localStorage.setItem(
 "jayExpenses",
@@ -546,7 +947,9 @@ JSON.stringify(expenses)
 function deleteExpense(id){
 
 expenses =
-expenses.filter(e => e.id !== id);
+expenses.filter(
+e => e.id !== id
+);
 
 localStorage.setItem(
 "jayExpenses",
@@ -560,36 +963,56 @@ calculate();
 
 function calculate(){
 
-let total = 0;
-let todayTotal = 0;
+let total=0;
+
+let todayTotal=0;
 
 let today =
-new Date().toLocaleDateString("en-IN");
+new Date()
+.toLocaleDateString("en-IN");
 
-expenses.forEach(e => {
+
+expenses.forEach(e=>{
 
 total += Number(e.amount);
 
 if(e.date === today){
-todayTotal += Number(e.amount);
+
+todayTotal +=
+Number(e.amount);
+
 }
 
 });
 
+
 let balance =
 income-total;
 
-document.getElementById("showIncome").innerText =
+
+document.getElementById(
+"showIncome"
+).innerText =
 "₹"+income;
 
-document.getElementById("showExpense").innerText =
+
+document.getElementById(
+"showExpense"
+).innerText =
 "₹"+total;
 
-document.getElementById("showBalance").innerText =
+
+document.getElementById(
+"showBalance"
+).innerText =
 "₹"+balance;
 
-document.getElementById("todayExpense").innerText =
+
+document.getElementById(
+"todayExpense"
+).innerText =
 "₹"+todayTotal;
+
 
 calculateSafeSpend(balance);
 
@@ -600,7 +1023,10 @@ balance,
 todayTotal
 );
 
-analysis(total,balance);
+analysis(
+total,
+balance
+);
 
 showExpenses();
 
@@ -611,7 +1037,9 @@ goalAnalysis(balance);
 
 function calculateSafeSpend(balance){
 
-let now = new Date();
+let now =
+new Date();
+
 
 let lastDay =
 new Date(
@@ -620,23 +1048,38 @@ now.getMonth()+1,
 0
 ).getDate();
 
+
 let daysLeft =
 lastDay-now.getDate()+1;
 
-let safe = 0;
 
-if(balance>0 && daysLeft>0){
+let safe=0;
+
+
+if(
+balance>0 &&
+daysLeft>0
+){
 
 safe =
-Math.floor(balance/daysLeft);
+Math.floor(
+balance/daysLeft
+);
 
 }
 
-document.getElementById("safeSpend").innerText =
+
+document.getElementById(
+"safeSpend"
+).innerText =
 "₹"+safe;
 
+
 let text =
-document.getElementById("safeText");
+document.getElementById(
+"safeText"
+);
+
 
 if(income<=0){
 
@@ -648,14 +1091,14 @@ text.innerText =
 else if(balance<=0){
 
 text.innerText =
-"अभी balance नहीं बचा है। खर्च रोककर देखें।";
+"अभी balance नहीं बचा है।";
 
 }
 
 else{
 
 text.innerText =
-"अगर इसी balance को महीने के बाकी दिनों में बाँटें।";
+"बचे हुए balance को महीने के बाकी दिनों में बाँटकर।";
 
 }
 
@@ -670,138 +1113,193 @@ today
 ){
 
 let box =
-document.getElementById("advice");
+document.getElementById(
+"advice"
+);
+
 
 if(income<=0){
 
 box.innerText =
-"💡 अपनी monthly income save करो। फिर मैं तुम्हारे खर्च को समझने में मदद करूंगा।";
+"💡 अपनी monthly income save करो। फिर expenses track करना शुरू करो।";
 
 return;
 
 }
+
 
 if(balance<0){
 
 box.innerText =
-"🚨 आपका खर्च income से ज्यादा हो गया है। अभी unnecessary खर्च रोकना बेहतर रहेगा।";
+"🚨 खर्च income से ज्यादा हो गया है। Unnecessary खर्च रोकना बेहतर रहेगा।";
 
 return;
 
 }
+
 
 if(total===0){
 
 box.innerText =
-"🌱 अभी कोई expense नहीं है। छोटी से छोटी payment भी track करना शुरू करो।";
+"🌱 अभी कोई expense नहीं है। छोटी payment भी track करना शुरू करो।";
 
 return;
 
 }
 
+
 let ratio =
 (total/income)*100;
+
 
 if(ratio>=80){
 
 box.innerText =
-"⚠️ Income का बड़ा हिस्सा खर्च हो चुका है। अगले खर्च से पहले दो बार सोचो।";
+"⚠️ Income का बड़ा हिस्सा खर्च हो चुका है। अगले खर्च से पहले सोचो।";
 
 }
 
 else if(ratio>=60){
 
 box.innerText =
-"👀 Spending पर थोड़ा ध्यान दो। महीने के बाकी दिनों के लिए balance बचाकर रखो।";
+"👀 Spending पर थोड़ा ध्यान दो और balance बचाकर रखो।";
 
 }
 
 else{
 
 box.innerText =
-"🔥 अच्छा control! खर्च track करते रहो और बचा हुआ पैसा सुरक्षित रखो।";
+"🔥 अच्छा control! खर्च track करते रहो।";
 
 }
 
 }
 
 
-function analysis(total,balance){
+function analysis(
+total,
+balance
+){
 
-let score = 100;
+let score=100;
+
 
 if(income>0){
 
 let ratio =
 (total/income)*100;
 
-if(ratio>=90) score=20;
-else if(ratio>=75) score=40;
-else if(ratio>=60) score=60;
-else if(ratio>=40) score=80;
-else score=95;
+
+if(ratio>=90)
+score=20;
+
+else if(ratio>=75)
+score=40;
+
+else if(ratio>=60)
+score=60;
+
+else if(ratio>=40)
+score=80;
+
+else
+score=95;
 
 }
 
-document.getElementById("score").innerText =
+
+document.getElementById(
+"score"
+).innerText =
 score+"/100";
 
 
 let categories={};
 
+
 expenses.forEach(e=>{
 
 categories[e.category] =
-(categories[e.category] || 0)
-+Number(e.amount);
+(
+categories[e.category] || 0
+)+Number(e.amount);
 
 });
 
+
 let biggest="";
+
 let biggestAmount=0;
 
-for(let c in categories){
 
-if(categories[c]>biggestAmount){
+for(
+let c in categories
+){
 
-biggestAmount=categories[c];
+if(
+categories[c] >
+biggestAmount
+){
+
+biggestAmount =
+categories[c];
+
 biggest=c;
 
 }
 
 }
 
+
 if(biggest){
 
-document.getElementById("biggestCategory").innerText =
-biggest+" — ₹"+biggestAmount;
+document.getElementById(
+"biggestCategory"
+).innerText =
+biggest+
+" — ₹"+
+biggestAmount;
 
-}else{
+}
 
-document.getElementById("biggestCategory").innerText =
+else{
+
+document.getElementById(
+"biggestCategory"
+).innerText =
 "अभी data नहीं है।";
 
 }
 
 
 let forecastBox =
-document.getElementById("forecast");
+document.getElementById(
+"forecast"
+);
 
-if(expenses.length===0){
+
+if(
+expenses.length===0
+){
 
 forecastBox.innerText =
 "कुछ expenses add करो।";
 
-}else{
+}
+
+else{
 
 let today =
 new Date().getDate();
 
+
 let days =
 Math.max(today,1);
 
+
 let average =
 total/days;
+
 
 let lastDay =
 new Date(
@@ -810,21 +1308,33 @@ new Date().getMonth()+1,
 0
 ).getDate();
 
+
 let predicted =
-Math.round(average*lastDay);
+Math.round(
+average*lastDay
+);
+
 
 forecastBox.innerText =
-"लगभग ₹"+predicted+
+"लगभग ₹"+
+predicted+
 " total monthly expense हो सकता है।";
 
 }
 
-let extra =
-Math.floor(total*0.10);
 
-document.getElementById("extraSaving").innerText =
+let extra =
+Math.floor(
+total*0.10
+);
+
+
+document.getElementById(
+"extraSaving"
+).innerText =
 "अगर खर्च लगभग 10% कम हो, तो करीब ₹"+
-extra+" बच सकता है.";
+extra+
+" बच सकता है.";
 
 }
 
@@ -832,9 +1342,14 @@ extra+" बच सकता है.";
 function showExpenses(){
 
 let list =
-document.getElementById("expenseList");
+document.getElementById(
+"expenseList"
+);
 
-if(expenses.length===0){
+
+if(
+expenses.length===0
+){
 
 list.innerHTML =
 '<div class="empty">अभी कोई expense नहीं है।</div>';
@@ -843,7 +1358,9 @@ return;
 
 }
 
+
 list.innerHTML="";
+
 
 expenses
 .slice()
@@ -858,17 +1375,17 @@ list.innerHTML += `
 <div class="itemTop">
 
 <span class="name">
-${e.category} — ${e.name}
+${escapeHTML(e.category)} — ${escapeHTML(e.name)}
 </span>
 
 <span class="amount">
-₹${e.amount}
+₹${Number(e.amount)}
 </span>
 
 </div>
 
 <div class="date">
-📅 ${e.date}
+📅 ${escapeHTML(e.date)}
 </div>
 
 <button
@@ -890,15 +1407,25 @@ onclick="deleteExpense(${e.id})"
 function saveGoal(){
 
 goal =
-Number(document.getElementById("goal").value) || 0;
+Number(
+document.getElementById("goal").value
+) || 0;
 
-localStorage.setItem("jayGoal",goal);
+
+localStorage.setItem(
+"jayGoal",
+goal
+);
+
 
 goalAnalysis(
 income-expenseTotal()
 );
 
-alert("🎯 Saving goal save हो गया!");
+
+alert(
+"🎯 Saving goal save हो गया!"
+);
 
 }
 
@@ -907,9 +1434,14 @@ function expenseTotal(){
 
 let total=0;
 
+
 expenses.forEach(e=>{
-total+=Number(e.amount);
+
+total +=
+Number(e.amount);
+
 });
+
 
 return total;
 
@@ -919,7 +1451,10 @@ return total;
 function goalAnalysis(balance){
 
 let box =
-document.getElementById("goalResult");
+document.getElementById(
+"goalResult"
+);
+
 
 if(goal<=0){
 
@@ -930,19 +1465,31 @@ return;
 
 }
 
+
 let saved =
-Math.max(balance,0);
+Math.max(
+balance,
+0
+);
+
 
 let percent =
 Math.min(
-Math.round((saved/goal)*100),
+Math.round(
+(saved/goal)*100
+),
 100
 );
 
+
 box.innerHTML =
-"🎯 Goal: ₹"+goal+
-"<br>💰 Current balance: ₹"+saved+
-"<br>📊 Progress: "+percent+"%";
+"🎯 Goal: ₹"+
+goal+
+"<br>💰 Current balance: ₹"+
+saved+
+"<br>📊 Progress: "+
+percent+
+"%";
 
 }
 
@@ -950,34 +1497,463 @@ box.innerHTML =
 function toggleAnalysis(){
 
 let box =
-document.getElementById("analysis");
+document.getElementById(
+"analysis"
+);
 
-box.classList.toggle("show");
+box.classList.toggle(
+"show"
+);
 
 }
 
 
 function resetApp(){
 
-if(!confirm("क्या पूरा data delete करना है?")){
+if(
+!confirm(
+"क्या पूरा money data delete करना है?"
+)
+){
+
 return;
+
 }
 
+
 expenses=[];
+
 income=0;
+
 goal=0;
 
-localStorage.removeItem("jayExpenses");
-localStorage.removeItem("jayIncome");
-localStorage.removeItem("jayGoal");
 
-document.getElementById("income").value="";
-document.getElementById("goal").value="";
+localStorage.removeItem(
+"jayExpenses"
+);
+
+localStorage.removeItem(
+"jayIncome"
+);
+
+localStorage.removeItem(
+"jayGoal"
+);
+
+
+document.getElementById(
+"income"
+).value="";
+
+document.getElementById(
+"goal"
+).value="";
+
 
 calculate();
 
 }
 
+
+/* =========================
+   DOCUMENT STUDIO
+========================= */
+
+let currentDocumentTool =
+"resume";
+
+
+function openDocumentTool(tool){
+
+currentDocumentTool =
+tool;
+
+
+let box =
+document.getElementById(
+"documentBox"
+);
+
+
+box.classList.add(
+"show"
+);
+
+
+document.getElementById(
+"resultBox"
+).classList.remove(
+"show"
+);
+
+
+let title =
+document.getElementById(
+"documentTitle"
+);
+
+
+let about =
+document.getElementById(
+"docAbout"
+);
+
+
+if(tool==="resume"){
+
+title.innerText =
+"📄 Resume Maker";
+
+about.placeholder =
+"अपने बारे में 2-3 lines";
+
+}
+
+else{
+
+title.innerText =
+"✉️ Job Application Maker";
+
+about.placeholder =
+"किस job के लिए application चाहिए?";
+
+}
+
+
+box.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function generateDocument(){
+
+let name =
+document.getElementById(
+"docName"
+).value.trim();
+
+
+let phone =
+document.getElementById(
+"docPhone"
+).value.trim();
+
+
+let email =
+document.getElementById(
+"docEmail"
+).value.trim();
+
+
+let city =
+document.getElementById(
+"docCity"
+).value.trim();
+
+
+let education =
+document.getElementById(
+"docEducation"
+).value.trim();
+
+
+let skills =
+document.getElementById(
+"docSkills"
+).value.trim();
+
+
+let experience =
+document.getElementById(
+"docExperience"
+).value.trim();
+
+
+let about =
+document.getElementById(
+"docAbout"
+).value.trim();
+
+
+let extra =
+document.getElementById(
+"docExtra"
+).value.trim();
+
+
+if(name===""){
+
+alert(
+"⚠️ अपना नाम डालें।"
+);
+
+return;
+
+}
+
+
+let output="";
+
+
+if(
+currentDocumentTool ===
+"resume"
+){
+
+output =
+
+name+
+"\n"+
+(city || "")+
+"\n"+
+(phone || "")+
+" | "+
+(email || "")+
+"\n\n"+
+
+"PROFESSIONAL SUMMARY"+
+"\n"+
+"-------------------------"+
+"\n"+
+(
+about ||
+"Motivated and responsible candidate looking for an opportunity to learn, contribute and grow professionally."
+)+
+"\n\n"+
+
+"EDUCATION"+
+"\n"+
+"-------------------------"+
+"\n"+
+(
+education ||
+"Not provided"
+)+
+"\n\n"+
+
+"SKILLS"+
+"\n"+
+"-------------------------"+
+"\n"+
+(
+skills ||
+"Not provided"
+)+
+"\n\n"+
+
+"EXPERIENCE"+
+"\n"+
+"-------------------------"+
+"\n"+
+(
+experience ||
+"Fresher"
+)+
+"\n\n"+
+
+"ADDITIONAL INFORMATION"+
+"\n"+
+"-------------------------"+
+"\n"+
+(
+extra ||
+"Not provided"
+);
+
+}
+
+else{
+
+output =
+
+"JOB APPLICATION"+
+"\n"+
+"========================="+
+"\n\n"+
+
+"To,"+
+"\n"+
+"The Hiring Manager"+
+"\n\n"+
+
+"Subject: Application for Job Opportunity"+
+"\n\n"+
+
+"Respected Sir/Madam,"+
+"\n\n"+
+
+"My name is "+
+name+
+". I am interested in applying for a suitable job opportunity in your organization."+
+"\n\n"+
+
+"My qualification is "+
+(
+education ||
+"not provided"
+)+
+" and my skills include "+
+(
+skills ||
+"not provided"
+)+
+". My experience is "+
+(
+experience ||
+"Fresher"
+)+
+"."+
+"\n\n"+
+
+(
+about ||
+"I am hardworking, willing to learn and committed to performing my responsibilities sincerely."
+)+
+"\n\n"+
+
+"I would be grateful if you would consider my application and provide me an opportunity to contribute to your organization."+
+"\n\n"+
+
+"Thank you."+
+"\n\n"+
+
+"Sincerely,"+
+"\n"+
+name+
+"\n"+
+phone+
+"\n"+
+email+
+"\n"+
+city;
+
+}
+
+
+document.getElementById(
+"result"
+).innerText =
+output;
+
+
+document.getElementById(
+"resultBox"
+).classList.add(
+"show"
+);
+
+
+document.getElementById(
+"resultBox"
+).scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function copyResult(){
+
+let text =
+document.getElementById(
+"result"
+).innerText;
+
+
+if(
+navigator.clipboard &&
+navigator.clipboard.writeText
+){
+
+navigator.clipboard
+.writeText(text)
+.then(function(){
+
+alert(
+"✅ Document copy हो गया!"
+);
+
+})
+.catch(function(){
+
+fallbackCopy(text);
+
+});
+
+}
+
+else{
+
+fallbackCopy(text);
+
+}
+
+}
+
+
+function fallbackCopy(text){
+
+let area =
+document.createElement(
+"textarea"
+);
+
+area.value=text;
+
+document.body.appendChild(
+area
+);
+
+area.select();
+
+try{
+
+document.execCommand(
+"copy"
+);
+
+alert(
+"✅ Document copy हो गया!"
+);
+
+}
+
+catch(e){
+
+alert(
+"❌ Copy नहीं हो पाया।"
+);
+
+}
+
+document.body.removeChild(
+area
+);
+
+}
+
+
+/* =========================
+   SAFETY FOR USER TEXT
+========================= */
+
+function escapeHTML(value){
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   START
+========================= */
 
 calculate();
 
