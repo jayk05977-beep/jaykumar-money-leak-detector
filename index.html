@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jaykumar Money Leak Detector</title>
+
+<title>Jaykumar Money OS</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box;
+}
 
 body{
 margin:0;
 font-family:Arial,sans-serif;
 background:#eef1f5;
-color:#222;
+color:#202124;
 }
 
 .header{
 background:#111;
 color:white;
-padding:22px 15px;
+padding:24px 16px;
 text-align:center;
 }
 
@@ -27,22 +32,22 @@ font-size:25px;
 }
 
 .header p{
-margin:7px 0 0;
+margin:8px 0 0;
 font-size:14px;
 color:#ccc;
 }
 
 .container{
-max-width:500px;
+max-width:520px;
 margin:auto;
-padding:15px;
+padding:14px;
 }
 
 .card{
 background:white;
 padding:18px;
-margin-bottom:15px;
-border-radius:16px;
+margin-bottom:14px;
+border-radius:18px;
 box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
@@ -56,46 +61,60 @@ width:100%;
 padding:13px;
 margin:6px 0;
 border:1px solid #ccc;
-border-radius:10px;
+border-radius:11px;
 font-size:16px;
+outline:none;
 }
 
 button{
-width:100%;
-padding:13px;
-margin-top:8px;
-border:none;
-border-radius:10px;
-font-size:16px;
+border:0;
+border-radius:11px;
+padding:12px;
+font-size:15px;
 cursor:pointer;
 }
 
-.add-btn{
+.full{
+width:100%;
+margin-top:8px;
+}
+
+.dark{
 background:#111;
 color:white;
 }
 
-.budget-btn{
-background:#444;
-color:white;
+.gray{
+background:#eee;
 }
 
-.reset-btn{
-background:#eee;
-color:#222;
+.quick{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:7px;
+margin-top:8px;
+}
+
+.quick button{
+background:#f0f0f0;
 }
 
 .dashboard{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
+gap:9px;
 }
 
 .box{
-padding:15px;
-border-radius:13px;
 background:#f4f4f4;
+padding:14px 8px;
+border-radius:14px;
 text-align:center;
+}
+
+.box span{
+font-size:13px;
+color:#666;
 }
 
 .box strong{
@@ -104,17 +123,55 @@ font-size:20px;
 margin-top:5px;
 }
 
+.score{
+text-align:center;
+padding:18px;
+background:#f4f4f4;
+border-radius:15px;
+}
+
+.score-number{
+font-size:42px;
+font-weight:bold;
+}
+
+.score-text{
+font-weight:bold;
+margin-top:4px;
+}
+
+.progress-bg{
+height:12px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.progress{
+height:100%;
+width:0%;
+background:#222;
+}
+
+.insight{
+padding:14px;
+background:#f6f6f6;
+border-radius:14px;
+line-height:1.6;
+}
+
 .expense-item{
-background:#f7f7f7;
 padding:13px;
 margin:8px 0;
-border-radius:12px;
+background:#f7f7f7;
+border-radius:13px;
 }
 
 .expense-top{
 display:flex;
 justify-content:space-between;
-gap:10px;
+gap:8px;
 }
 
 .expense-name{
@@ -131,171 +188,450 @@ color:#777;
 margin-top:5px;
 }
 
-.delete-btn{
+.delete{
+margin-top:8px;
 background:#ddd;
-width:auto;
-padding:6px 10px;
 font-size:12px;
+padding:7px 10px;
+}
+
+.goal-progress{
+font-size:14px;
 margin-top:8px;
 }
 
-.message{
-text-align:center;
-font-weight:bold;
-padding:10px;
+.warning{
+background:#fff1f1;
+padding:13px;
+border-radius:13px;
+line-height:1.5;
 }
 
-.leak{
-background:#fff1f1;
-border-radius:12px;
-padding:14px;
-margin-top:10px;
+.tip{
+background:#f4f4f4;
+padding:13px;
+border-radius:13px;
+line-height:1.5;
 }
+
+.small{
+font-size:12px;
+color:#777;
+}
+
 </style>
+
 </head>
 
 <body>
 
+
 <div class="header">
-<h1>💰 Jaykumar Money Leak Detector</h1>
-<p>पता करो पैसा आखिर जा कहाँ रहा है?</p>
+
+<h1>💰 Jaykumar Money OS</h1>
+
+<p>अपने पैसे को समझो, control करो और बचत बढ़ाओ।</p>
+
 </div>
+
 
 <div class="container">
 
+
+<!-- INCOME -->
+
 <div class="card">
-<h2>💵 आपकी Income</h2>
+
+<h2>💵 Monthly Income</h2>
 
 <input
 type="number"
 id="income"
-placeholder="Monthly Income जैसे ₹10000">
+placeholder="जैसे ₹10000"
+>
+
 </div>
 
+
+<!-- BUDGET -->
+
 <div class="card">
+
 <h2>🎯 Monthly Budget</h2>
 
 <input
 type="number"
 id="budget"
-placeholder="इस महीने कितना खर्च करना है?">
+placeholder="इस महीने maximum खर्च">
 
-<button class="budget-btn" onclick="saveBudget()">
+<button
+class="dark full"
+onclick="saveBudget()"
+>
 Save Budget
 </button>
+
 </div>
 
+
+<!-- SAVING GOAL -->
+
 <div class="card">
-<h2>➕ नया खर्च</h2>
+
+<h2>🏆 Saving Goal</h2>
+
+<input
+type="number"
+id="goal"
+placeholder="जैसे ₹5000 बचाने हैं"
+>
+
+<button
+class="dark full"
+onclick="saveGoal()"
+>
+Save Goal
+</button>
+
+<div
+class="goal-progress"
+id="goalProgress"
+>
+Goal set नहीं है।
+</div>
+
+</div>
+
+
+<!-- QUICK EXPENSE -->
+
+<div class="card">
+
+<h2>⚡ Quick Expense</h2>
+
+<div class="quick">
+
+<button onclick="quickExpense(20)">₹20</button>
+
+<button onclick="quickExpense(50)">₹50</button>
+
+<button onclick="quickExpense(100)">₹100</button>
+
+<button onclick="quickExpense(200)">₹200</button>
+
+</div>
+
+<p class="small">
+Quick buttons में expense "Other" category में add होगा।
+</p>
+
+</div>
+
+
+<!-- ADD EXPENSE -->
+
+<div class="card">
+
+<h2>➕ Add Expense</h2>
 
 <input
 type="text"
 id="expenseName"
-placeholder="खर्च का नाम जैसे खाना">
+placeholder="खर्च का नाम"
+>
 
 <input
 type="number"
 id="expenseAmount"
-placeholder="रकम जैसे ₹200">
+placeholder="रकम"
+>
 
 <select id="category">
+
 <option value="Food">🍔 Food</option>
+
 <option value="Travel">🚗 Travel</option>
+
 <option value="Shopping">🛍️ Shopping</option>
+
 <option value="Recharge">📱 Recharge</option>
+
 <option value="Education">📚 Education</option>
+
+<option value="Bills">💡 Bills</option>
+
 <option value="Other">📦 Other</option>
+
 </select>
 
-<button class="add-btn" onclick="addExpense()">
+<button
+class="dark full"
+onclick="addExpense()"
+>
 ➕ Add Expense
 </button>
+
 </div>
 
+
+<!-- DASHBOARD -->
+
 <div class="card">
-<h2>📊 आपका Money Dashboard</h2>
+
+<h2>📊 Dashboard</h2>
 
 <div class="dashboard">
 
 <div class="box">
-Income
-<strong id="showIncome">₹0</strong>
+
+<span>Income</span>
+
+<strong id="showIncome">
+₹0
+</strong>
+
 </div>
 
 <div class="box">
-Expense
-<strong id="showExpense">₹0</strong>
+
+<span>Total Expense</span>
+
+<strong id="showExpense">
+₹0
+</strong>
+
 </div>
 
 <div class="box">
-Balance
-<strong id="showBalance">₹0</strong>
+
+<span>Balance</span>
+
+<strong id="showBalance">
+₹0
+</strong>
+
 </div>
 
 <div class="box">
-Budget
-<strong id="showBudget">₹0</strong>
+
+<span>Daily Safe Spend</span>
+
+<strong id="showDaily">
+₹0
+</strong>
+
 </div>
 
 </div>
+
 </div>
 
-<div class="card message" id="message">
-अपना data डालना शुरू करो 👆
-</div>
+
+<!-- MONEY SCORE -->
 
 <div class="card">
 
-<h2>🔎 Money Leak Detector</h2>
+<h2>🧠 Money Leak Score</h2>
 
-<div class="leak" id="leakBox">
+<div class="score">
+
+<div
+class="score-number"
+id="score"
+>
+100
+</div>
+
+<div
+class="score-text"
+id="scoreText"
+>
+Excellent
+</div>
+
+<div class="progress-bg">
+
+<div
+class="progress"
+id="scoreProgress"
+>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FORECAST -->
+
+<div class="card">
+
+<h2>🔮 30-Day Forecast</h2>
+
+<div
+class="insight"
+id="forecast"
+>
+पहले Income और कुछ expenses डालो।
+</div>
+
+</div>
+
+
+<!-- MONEY LEAK -->
+
+<div class="card">
+
+<h2>🔎 Biggest Money Leak</h2>
+
+<div
+class="insight"
+id="leak"
+>
 अभी analysis नहीं हुआ।
 </div>
 
 </div>
 
+
+<!-- SAVING CALCULATOR -->
+
 <div class="card">
 
-<h2>🧾 आपके Expenses</h2>
+<h2>🧮 Extra Saving Calculator</h2>
+
+<p class="small">
+अगर तुम रोज थोड़ा कम खर्च करो तो महीने में कितना बच सकता है?
+</p>
+
+<input
+type="number"
+id="cutAmount"
+placeholder="Daily खर्च कितना कम करें?"
+>
+
+<button
+class="dark full"
+onclick="calculateExtraSaving()"
+>
+Calculate
+</button>
+
+<div
+class="insight"
+id="extraSaving"
+>
+Result यहाँ आएगा।
+</div>
+
+</div>
+
+
+<!-- MESSAGE -->
+
+<div
+class="card"
+id="message"
+style="text-align:center;font-weight:bold;"
+>
+💡 अपना financial data डालना शुरू करो।
+</div>
+
+
+<!-- EXPENSE LIST -->
+
+<div class="card">
+
+<h2>🧾 Expense History</h2>
 
 <div id="expenseList">
-कोई expense अभी नहीं है।
+
+कोई expense नहीं है।
+
 </div>
 
 </div>
+
+
+<!-- TIP -->
 
 <div class="card">
 
-<button class="reset-btn" onclick="resetApp()">
+<h2>💡 Today's Money Tip</h2>
+
+<div class="tip">
+
+हर छोटा खर्च भी track करने की आदत बनाओ।
+छोटे खर्च मिलकर बड़ा amount बन सकते हैं।
+
+</div>
+
+</div>
+
+
+<!-- RESET -->
+
+<div class="card">
+
+<button
+class="gray full"
+onclick="resetApp()"
+>
 🔄 Reset All Data
 </button>
 
 </div>
 
+
 </div>
+
 
 <script>
 
+
 let expenses =
-JSON.parse(localStorage.getItem("jayExpenses")) || [];
+JSON.parse(
+localStorage.getItem("jayExpenses")
+) || [];
 
-let savedIncome =
-Number(localStorage.getItem("jayIncome")) || 0;
 
-let savedBudget =
-Number(localStorage.getItem("jayBudget")) || 0;
+let income =
+Number(
+localStorage.getItem("jayIncome")
+) || 0;
+
+
+let budget =
+Number(
+localStorage.getItem("jayBudget")
+) || 0;
+
+
+let goal =
+Number(
+localStorage.getItem("jayGoal")
+) || 0;
+
 
 document.getElementById("income").value =
-savedIncome || "";
+income || "";
+
 
 document.getElementById("budget").value =
-savedBudget || "";
+budget || "";
+
+
+document.getElementById("goal").value =
+goal || "";
 
 
 document.getElementById("income")
 .addEventListener("input",function(){
 
-let income = Number(this.value) || 0;
+income =
+Number(this.value) || 0;
 
 localStorage.setItem(
 "jayIncome",
@@ -309,8 +645,10 @@ calculate();
 
 function saveBudget(){
 
-let budget =
-Number(document.getElementById("budget").value) || 0;
+budget =
+Number(
+document.getElementById("budget").value
+) || 0;
 
 localStorage.setItem(
 "jayBudget",
@@ -319,7 +657,26 @@ budget
 
 calculate();
 
-alert("✅ Budget Save हो गया!");
+alert("✅ Budget save हो गया!");
+
+}
+
+
+function saveGoal(){
+
+goal =
+Number(
+document.getElementById("goal").value
+) || 0;
+
+localStorage.setItem(
+"jayGoal",
+goal
+);
+
+calculate();
+
+alert("🏆 Saving Goal save हो गया!");
 
 }
 
@@ -327,34 +684,83 @@ alert("✅ Budget Save हो गया!");
 function addExpense(){
 
 let name =
-document.getElementById("expenseName")
-.value.trim();
+document.getElementById(
+"expenseName"
+).value.trim();
+
 
 let amount =
 Number(
-document.getElementById("expenseAmount").value
+document.getElementById(
+"expenseAmount"
+).value
 );
 
+
 let category =
-document.getElementById("category").value;
+document.getElementById(
+"category"
+).value;
 
 
-if(name === "" || amount <= 0){
+if(
+name === "" ||
+amount <= 0
+){
 
-alert("⚠️ Expense का नाम और सही रकम डालो");
+alert(
+"⚠️ Expense का नाम और सही amount डालो।"
+);
 
 return;
 
 }
 
 
-let today =
-new Date().toLocaleDateString("en-IN");
+createExpense(
+name,
+amount,
+category
+);
 
+
+document.getElementById(
+"expenseName"
+).value = "";
+
+
+document.getElementById(
+"expenseAmount"
+).value = "";
+
+
+calculate();
+
+}
+
+
+function quickExpense(amount){
+
+createExpense(
+"Quick Expense",
+amount,
+"Other"
+);
+
+calculate();
+
+}
+
+
+function createExpense(
+name,
+amount,
+category
+){
 
 expenses.push({
 
-id:Date.now(),
+id:Date.now() + Math.random(),
 
 name:name,
 
@@ -362,7 +768,8 @@ amount:amount,
 
 category:category,
 
-date:today
+date:new Date()
+.toLocaleDateString("en-IN")
 
 });
 
@@ -372,20 +779,14 @@ localStorage.setItem(
 JSON.stringify(expenses)
 );
 
-
-document.getElementById("expenseName").value="";
-
-document.getElementById("expenseAmount").value="";
-
-calculate();
-
 }
 
 
 function deleteExpense(id){
 
 expenses =
-expenses.filter(function(expense){
+expenses.filter(
+function(expense){
 
 return expense.id !== id;
 
@@ -404,22 +805,14 @@ calculate();
 
 function calculate(){
 
-let income =
-Number(
-document.getElementById("income").value
-) || 0;
-
-let budget =
-Number(
-document.getElementById("budget").value
-) || 0;
-
 let total = 0;
 
 
-expenses.forEach(function(expense){
+expenses.forEach(
+function(expense){
 
-total += expense.amount;
+total +=
+Number(expense.amount);
 
 });
 
@@ -428,71 +821,297 @@ let balance =
 income - total;
 
 
-document.getElementById("showIncome")
-.innerText = "₹" + income;
-
-document.getElementById("showExpense")
-.innerText = "₹" + total;
-
-document.getElementById("showBalance")
-.innerText = "₹" + balance;
-
-document.getElementById("showBudget")
-.innerText = "₹" + budget;
+document.getElementById(
+"showIncome"
+).innerText =
+"₹" + income;
 
 
-let message =
-document.getElementById("message");
+document.getElementById(
+"showExpense"
+).innerText =
+"₹" + total;
 
 
-if(income === 0){
-
-message.innerText =
-"💡 पहले अपनी Income डालो।";
-
-}
-
-else if(balance < 0){
-
-message.innerText =
-"🚨 सावधान! खर्च आपकी Income से ज्यादा हो गया।";
-
-}
-
-else if(budget > 0 && total > budget){
-
-message.innerText =
-"⚠️ आपका Budget पार हो चुका है!";
-
-}
-
-else{
-
-message.innerText =
-"✅ अभी आपके पास ₹" +
-balance +
-" बाकी हैं।";
-
-}
+document.getElementById(
+"showBalance"
+).innerText =
+"₹" + balance;
 
 
-analyzeLeaks();
+calculateDaily(balance);
+
+
+calculateScore(
+income,
+total
+);
+
+
+calculateForecast(
+income,
+total
+);
+
+
+calculateLeak();
+
+
+calculateGoal(
+balance
+);
+
+
+updateMessage(
+income,
+total,
+balance
+);
+
 
 showExpenses();
 
 }
 
 
-function analyzeLeaks(){
+function calculateDaily(balance){
 
-let leakBox =
-document.getElementById("leakBox");
+let now =
+new Date();
 
 
-if(expenses.length === 0){
+let lastDay =
+new Date(
+now.getFullYear(),
+now.getMonth()+1,
+0
+).getDate();
 
-leakBox.innerText =
-"अभी कोई expense नहीं है।";
+
+let today =
+now.getDate();
+
+
+let daysLeft =
+lastDay - today + 1;
+
+
+if(
+daysLeft <= 0 ||
+balance <= 0
+){
+
+document.getElementById(
+"showDaily"
+).innerText =
+"₹0";
+
+return;
+
+}
+
+
+let daily =
+balance / daysLeft;
+
+
+document.getElementById(
+"showDaily"
+).innerText =
+"₹" +
+Math.floor(daily);
+
+}
+
+
+function calculateScore(
+income,
+total
+){
+
+let score = 100;
+
+
+if(income > 0){
+
+let ratio =
+(total / income) * 100;
+
+
+if(ratio >= 90){
+
+score = 20;
+
+}
+
+else if(ratio >= 75){
+
+score = 40;
+
+}
+
+else if(ratio >= 60){
+
+score = 60;
+
+}
+
+else if(ratio >= 40){
+
+score = 80;
+
+}
+
+else{
+
+score = 95;
+
+}
+
+}
+
+
+document.getElementById(
+"score"
+).innerText =
+score;
+
+
+document.getElementById(
+"scoreProgress"
+).style.width =
+score + "%";
+
+
+let text =
+document.getElementById(
+"scoreText"
+);
+
+
+if(score >= 90){
+
+text.innerText =
+"🔥 Excellent Money Control";
+
+}
+
+else if(score >= 75){
+
+text.innerText =
+"👍 Good Control";
+
+}
+
+else if(score >= 50){
+
+text.innerText =
+"⚠️ थोड़ा ध्यान चाहिए";
+
+}
+
+else{
+
+text.innerText =
+"🚨 Spending बहुत ज्यादा है";
+
+}
+
+}
+
+
+function calculateForecast(
+income,
+total
+){
+
+let box =
+document.getElementById(
+"forecast"
+);
+
+
+if(
+expenses.length === 0
+){
+
+box.innerText =
+"कुछ expenses add करो, फिर forecast दिखाई देगा।";
+
+return;
+
+}
+
+
+let now =
+new Date();
+
+
+let today =
+now.getDate();
+
+
+let daysPassed =
+Math.max(today,1);
+
+
+let dailyAverage =
+total / daysPassed;
+
+
+let lastDay =
+new Date(
+now.getFullYear(),
+now.getMonth()+1,
+0
+).getDate();
+
+
+let forecastExpense =
+dailyAverage * lastDay;
+
+
+let forecastBalance =
+income - forecastExpense;
+
+
+box.innerHTML =
+
+"📈 अभी तक average खर्च: <b>₹" +
+
+Math.round(dailyAverage) +
+
+"</b> / day<br><br>" +
+
+"🔮 महीने के अंत तक अनुमानित खर्च: <b>₹" +
+
+Math.round(forecastExpense) +
+
+"</b><br><br>" +
+
+"💰 अनुमानित balance: <b>₹" +
+
+Math.round(forecastBalance) +
+
+"</b>";
+
+}
+
+
+function calculateLeak(){
+
+let box =
+document.getElementById(
+"leak"
+);
+
+
+if(
+expenses.length === 0
+){
+
+box.innerText =
+"Expense add करने के बाद analysis मिलेगा।";
 
 return;
 
@@ -502,33 +1121,50 @@ return;
 let categories = {};
 
 
-expenses.forEach(function(expense){
+expenses.forEach(
+function(expense){
 
-if(!categories[expense.category]){
+if(
+!categories[
+expense.category
+]
+){
 
-categories[expense.category] = 0;
+categories[
+expense.category
+] = 0;
 
 }
 
-categories[expense.category] +=
-expense.amount;
+
+categories[
+expense.category
+] +=
+Number(expense.amount);
 
 });
 
 
-let biggestCategory = "";
+let biggest =
+"";
 
-let biggestAmount = 0;
+let biggestAmount =
+0;
 
 
-for(let category in categories){
+for(
+let category in categories
+){
 
-if(categories[category] > biggestAmount){
+if(
+categories[category] >
+biggestAmount
+){
 
 biggestAmount =
 categories[category];
 
-biggestCategory =
+biggest =
 category;
 
 }
@@ -536,16 +1172,170 @@ category;
 }
 
 
-leakBox.innerHTML =
-"🔍 सबसे ज्यादा खर्च: <b>" +
-biggestCategory +
-"</b><br><br>" +
+box.innerHTML =
 
-"💸 इस category में: <b>₹" +
+"🚨 सबसे ज्यादा पैसा <b>" +
+
+biggest +
+
+"</b> में गया है।<br><br>" +
+
+"💸 Total: <b>₹" +
+
 biggestAmount +
+
 "</b><br><br>" +
 
-"👉 अपने अगले खर्च में थोड़ा ध्यान दो।";
+"💡 अगली बार इस category के खर्च को थोड़ा monitor करो।";
+
+}
+
+
+function calculateGoal(balance){
+
+let box =
+document.getElementById(
+"goalProgress"
+);
+
+
+if(goal <= 0){
+
+box.innerText =
+"Saving goal set नहीं है।";
+
+return;
+
+}
+
+
+let saved =
+Math.max(balance,0);
+
+
+let percent =
+(saved / goal) * 100;
+
+
+percent =
+Math.min(percent,100);
+
+
+box.innerHTML =
+
+"🎯 Goal: ₹" +
+
+goal +
+
+"<br>" +
+
+"💰 Current saving: ₹" +
+
+saved +
+
+"<br>" +
+
+"📊 Progress: " +
+
+Math.round(percent) +
+
+"%";
+
+
+}
+
+
+function calculateExtraSaving(){
+
+let cut =
+Number(
+document.getElementById(
+"cutAmount"
+).value
+) || 0;
+
+
+if(cut <= 0){
+
+document.getElementById(
+"extraSaving"
+).innerText =
+"⚠️ Daily saving amount डालो।";
+
+return;
+
+}
+
+
+let monthly =
+cut * 30;
+
+
+document.getElementById(
+"extraSaving"
+).innerHTML =
+
+"🔥 अगर रोज ₹" +
+
+cut +
+
+" कम खर्च करो,<br><br>" +
+
+"तो लगभग <b>₹" +
+
+monthly +
+
+"</b> extra बच सकते हैं।";
+
+}
+
+
+function updateMessage(
+income,
+total,
+balance
+){
+
+let message =
+document.getElementById(
+"message"
+);
+
+
+if(income <= 0){
+
+message.innerText =
+"💡 अपनी Monthly Income डालो।";
+
+}
+
+else if(balance < 0){
+
+message.innerText =
+"🚨 खर्च Income से ज्यादा हो गया है।";
+
+}
+
+else if(
+budget > 0 &&
+total > budget
+){
+
+message.innerText =
+"⚠️ आपका Monthly Budget पार हो चुका है।";
+
+}
+
+else{
+
+message.innerText =
+"✅ अभी ₹" +
+
+balance +
+
+" balance है।";
+
+}
 
 }
 
@@ -553,13 +1343,17 @@ biggestAmount +
 function showExpenses(){
 
 let list =
-document.getElementById("expenseList");
+document.getElementById(
+"expenseList"
+);
 
 
-if(expenses.length === 0){
+if(
+expenses.length === 0
+){
 
-list.innerHTML =
-"कोई expense अभी नहीं है।";
+list.innerText =
+"कोई expense नहीं है।";
 
 return;
 
@@ -569,7 +1363,10 @@ return;
 list.innerHTML = "";
 
 
-expenses.slice().reverse().forEach(
+expenses
+.slice()
+.reverse()
+.forEach(
 function(expense){
 
 list.innerHTML +=
@@ -602,7 +1399,7 @@ expense.date +
 
 "</div>" +
 
-"<button class='delete-btn' " +
+"<button class='delete' " +
 
 "onclick='deleteExpense(" +
 expense.id +
@@ -621,13 +1418,11 @@ expense.id +
 
 function resetApp(){
 
-let confirmReset =
-confirm(
-"क्या आप पूरा data delete करना चाहते हैं?"
-);
-
-
-if(!confirmReset){
+if(
+!confirm(
+"पूरा data delete करना है?"
+)
+){
 
 return;
 
@@ -635,6 +1430,12 @@ return;
 
 
 expenses = [];
+
+income = 0;
+
+budget = 0;
+
+goal = 0;
 
 
 localStorage.removeItem(
@@ -649,10 +1450,22 @@ localStorage.removeItem(
 "jayBudget"
 );
 
+localStorage.removeItem(
+"jayGoal"
+);
 
-document.getElementById("income").value="";
 
-document.getElementById("budget").value="";
+document.getElementById(
+"income"
+).value = "";
+
+document.getElementById(
+"budget"
+).value = "";
+
+document.getElementById(
+"goal"
+).value = "";
 
 
 calculate();
